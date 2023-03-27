@@ -13,9 +13,10 @@ public class MOVEPERS : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private Animator anim;
 
-    private Animator anim;
-
+    [SerializeField] private FixedJoystick _joystick;
+    
     private void Start()
     {
         anim = GetComponent<Animator>();
@@ -48,6 +49,7 @@ public class MOVEPERS : MonoBehaviour
 
     private void FixedUpdate()
     {
+        
         rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
         if (horizontal  > 0.0f||horizontal  < 0.0f)
         {
@@ -57,8 +59,8 @@ public class MOVEPERS : MonoBehaviour
         {
             anim.SetBool("run",false);
         }
-        
-        
+
+        rb.velocity = new Vector2(_joystick.Horizontal * speed, rb.velocity.y);
     }
 
     private bool IsGrounded()
